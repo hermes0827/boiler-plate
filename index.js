@@ -4,6 +4,9 @@ const port = 5000;
 const bodyParser = require("body-parser");
 const { User } = require("./models/User");
 
+const config = require('./config/key')
+
+
 //application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 //application/json
@@ -12,7 +15,7 @@ app.use(bodyParser.json());
 const mongoose = require("mongoose");
 mongoose
   .connect(
-    "mongodb+srv://nylee:1234@boiler-plate-5ggwt.mongodb.net/test?retryWrites=true&w=majority",
+    config.mongoURI,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -23,7 +26,7 @@ mongoose
   .then(() => console.log("MongoDB Connected..."))
   .catch(err => console.log(err));
 
-app.get("/", (req, res) => res.send("Hello World!"));
+app.get("/", (req, res) => res.send("Hello World! This is boiler-plate."));
 
 app.post("/register", (req, res) => {
   //회원가입에 필요한 정보를 Client에서 가져와 DB에 넣어줍니다.
